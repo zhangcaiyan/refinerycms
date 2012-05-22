@@ -102,7 +102,10 @@ module Refinery
 
       # See if we can trace where this happened
       if options[:caller]
-        whos_calling = options[:caller].detect{|c| c =~ %r{#{Rails.root.to_s}}}.inspect.to_s.split(':in').first
+        whos_calling = options[:caller].detect{|c|
+          %r{#{Rails.root.to_s}} === c
+        }.inspect.to_s.split(':in').first
+
         warning << "\nCalled from: #{whos_calling}\n"
       end
 
@@ -159,13 +162,16 @@ module Refinery
       options = {:plural => false, :admin => true}.merge options
 
       klass = klass.constantize if klass.respond_to?(:constantize)
-      active_name = ActiveModel::Name.new klass, (Refinery if klass.parents.include?(Refinery))
+      active_name = ::ActiveModel::Name.new(
+        klass, (Refinery if klass.parents.include?(Refinery))
+      )
 
       if options[:admin]
         # Most of the time this gets rid of 'refinery'
-        parts = active_name.underscore.split('/').reject{|name|
-          active_name.singular_route_key.exclude?(name)
-        }
+        parts = ActiveSupport::Inflector.underscore(active_name)
+                  .split('/').reject{|name|
+                    active_name.singular_route_key.exclude?(name)
+                  }
 
         # Get the singular resource_name from the url parts
         resource_name = parts.pop
@@ -180,7 +186,9 @@ module Refinery
     end
 
     def include_once(base, extension_module)
-      base.send :include, extension_module unless included_extension_module?(base, extension_module)
+      unless included_extension_module?(base, extension_module)
+        base.send :include, extension_module
+      end
     end
 
   private
@@ -188,7 +196,8 @@ module Refinery
     def included_extension_module?(base, extension_module)
       if base.kind_of?(Class)
         direct_superclass = base.superclass
-        base.ancestors.take_while {|ancestor| ancestor != direct_superclass}.include?(extension_module)
+        base.ancestors.take_while {|ancestor| ancestor != direct_superclass}
+                      .include? extension_module
       else
         base < extension_module # can't do better than that for modules
       end
