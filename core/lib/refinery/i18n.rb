@@ -13,10 +13,6 @@ module Refinery
       def default_frontend_locale
         :en
       end
-
-      def frontend_locales
-        [:en]
-      end
     end
   end
 end
