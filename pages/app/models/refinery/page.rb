@@ -47,10 +47,9 @@ module Refinery
     acts_as_indexed :fields => [:title, :meta_keywords, :meta_description,
                                 :menu_title, :browser_title, :all_page_part_content]
 
-    has_many :parts,
+    has_many :parts, -> { order('position ASC') },
              :foreign_key => :refinery_page_id,
              :class_name => '::Refinery::PagePart',
-             :order => 'position ASC',
              :inverse_of => :page,
              :dependent => :destroy,
              :include => ((:translations) if ::Refinery::PagePart.respond_to?(:translation_class))
@@ -189,7 +188,7 @@ module Refinery
     # This ensures that they are in the correct 0,1,2,3,4... etc order.
     def reposition_parts!
       reload.parts.each_with_index do |part, index|
-        part.update_column(:position, index)
+        part.update_columns position: index
       end
     end
 

@@ -6,10 +6,12 @@ module Refinery
   class User < Refinery::Core::BaseModel
     extend FriendlyId
 
-    has_and_belongs_to_many :roles, :join_table => :refinery_roles_users
+    has_and_belongs_to_many :roles, join_table: :refinery_roles_users
 
-    has_many :plugins, :class_name => "UserPlugin", :order => "position ASC", :dependent => :destroy
-    friendly_id :username, :use => [:slugged]
+    has_many :plugins, -> { order('position ASC') },
+                       class_name: "UserPlugin", dependent: :destroy
+
+    friendly_id :username, use: [:slugged]
 
     # Docs for acts_as_indexed http://github.com/dougal/acts_as_indexed
     acts_as_indexed :fields => [:username, :email]
@@ -18,7 +20,7 @@ module Refinery
     # :token_authenticatable, :confirmable, :lockable and :timeoutable
     if self.respond_to?(:devise)
       devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-             :trackable, :validatable, :authentication_keys => [:login]
+             :trackable, :validatable, authentication_keys: [:login]
     end
 
     # Setup accessible (or protected) attributes for your model
@@ -27,7 +29,7 @@ module Refinery
     attr_accessor :login
     attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :plugins, :login
 
-    validates :username, :presence => true, :uniqueness => true
+    validates :username, presence: true, uniqueness: true
     before_validation :downcase_username
 
     class << self
@@ -35,16 +37,16 @@ module Refinery
       # https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign_in-using-their-username-or-email-address
       def find_for_database_authentication(conditions)
         value = conditions[authentication_keys.first]
-        where(["username = :value OR email = :value", { :value => value }]).first
+        where(["username = :value OR email = :value", { value: value }]).first
       end
     end
 
     def plugins=(plugin_names)
       if persisted? # don't add plugins when the user_id is nil.
-        UserPlugin.delete_all(:user_id => id)
+        UserPlugin.delete_all(user_id: id)
 
         plugin_names.each_with_index do |plugin_name, index|
-          plugins.create(:name => plugin_name, :position => index) if plugin_name.is_a?(String)
+          plugins.create(name: plugin_name, position: index) if plugin_name.is_a?(String)
         end
       end
     end
