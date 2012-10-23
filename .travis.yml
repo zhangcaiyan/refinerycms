@@ -1,5 +1,6 @@
 language: ruby
 before_install:
+  - gem install bundler
   - 'if [[ "$TRAVIS_RUBY_VERSION" =~ "jruby" ]] ; then gem update --system ; fi'
 before_script:
   - "sh -e /etc/init.d/xvfb start"
