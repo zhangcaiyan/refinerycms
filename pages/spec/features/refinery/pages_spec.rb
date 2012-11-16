@@ -316,7 +316,6 @@ module Refinery
         let(:en_page_title) { 'News' }
         let(:en_page_slug) { 'news' }
         let(:ru_page_title) { 'Новости' }
-        let(:ru_page_slug) { 'новости' }
         let(:ru_page_slug_encoded) { '%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8' }
         let!(:news_page) do
           _page = Globalize.with_locale(:en) {

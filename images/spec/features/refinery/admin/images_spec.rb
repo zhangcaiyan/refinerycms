@@ -34,13 +34,6 @@ module Refinery
         page.should have_content(::I18n.t('created', :scope => 'refinery.crudify', :what => "'Image With Dashes'"))
         Refinery::Image.count.should == 1
       end
-
-      it 'is accessible via url' do
-        image = Refinery::Image.create(:image => Refinery.roots(:'refinery/images').join("spec/fixtures/image-with-dashes.jpg"))
-        get image.url
-
-        response.should be_success
-      end
     end
 
     context "when an image exists" do

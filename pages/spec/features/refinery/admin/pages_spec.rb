@@ -85,15 +85,15 @@ module Refinery
             end
 
             it "expands children", :js do
-              find("#page_#{company.id} .toggle").click
+              find("#page_#{company.id} .title.toggle").click
 
               page.should have_content(team.title)
               page.should have_content(locations.title)
             end
 
             it "expands children when nested mutliple levels deep", :js do
-              find("#page_#{company.id} .toggle").click
-              find("#page_#{locations.id} .toggle").click
+              find("#page_#{company.id} .title.toggle").click
+              find("#page_#{locations.id} .title.toggle").click
 
               page.should have_content("New York")
             end
@@ -162,7 +162,7 @@ module Refinery
             click_link "Edit this page"
 
             fill_in "Title", :with => "Updated"
-            click_button "Save"
+            find("#submit_button").click
 
             page.should have_content("'Updated' was successfully updated.")
           end
@@ -174,7 +174,7 @@ module Refinery
             find('a[tooltip^=Edit]').click
 
             fill_in "Title", :with => "Updated"
-            click_button "Save & continue editing"
+            find("#submit_continue_button").click
             find('#flash').visible?
           end
 
@@ -185,7 +185,7 @@ module Refinery
           # Regression test for https://github.com/refinery/refinerycms/issues/1892
           context 'when saving to exit (a second time)' do
             it 'updates page', :js do
-              click_button "Save"
+              find("#submit_button").click
               page.should have_content("'Updated' was successfully updated.")
             end
           end
@@ -374,7 +374,7 @@ module Refinery
 
             within "#menu" do
               page.should have_content('News')
-              page.should have_css('a', :href => 'news')
+              page.should have_selector("a[href='/news']")
             end
           end
 
@@ -392,7 +392,6 @@ module Refinery
           let(:en_page_title) { 'News' }
           let(:en_page_slug) { 'news' }
           let(:ru_page_title) { 'Новости' }
-          let(:ru_page_slug) { 'новости' }
           let(:ru_page_slug_encoded) { '%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8' }
           let!(:news_page) do
             Refinery::I18n.stub(:frontend_locales).and_return([:en, :ru])
@@ -426,7 +425,7 @@ module Refinery
               click_link "En"
             end
             fill_in "Title", :with => en_page_title
-            click_button "Save"
+            find("#submit_button").click
 
             page.should have_content("'#{en_page_title}' was successfully updated.")
             Refinery::Page.count.should == 2
@@ -482,7 +481,7 @@ module Refinery
           }
           let(:ru_page_id) { ru_page.id }
           let(:ru_page_title) { 'Новости' }
-          let(:ru_page_slug) { 'новости' }
+          let(:ru_page_slug_encoded) { '%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8' }
 
           before do
             ru_page
@@ -531,7 +530,7 @@ module Refinery
 
             within "#menu" do
               page.should have_content(ru_page_title)
-              page.should have_css('a', :href => ru_page_slug)
+              page.should have_selector("a[href*='/#{ru_page_slug_encoded}']")
             end
           end
 
@@ -578,15 +577,11 @@ module Refinery
               parent_page = Page.create :title => 'Parent Page',
                                         :view_template => 'refinery',
                                         :layout_template => 'refinery'
-              parent_page.children.create :title => 'Child Page'
+              @page = parent_page.children.create :title => 'Child Page'
             end
 
             specify 'sub page should inherit them' do
-              visit refinery.admin_pages_path
-
-              within '.nested' do
-                click_link 'Edit this page'
-              end
+              visit refinery.edit_admin_page_path(@page.id)
 
               within '#page_layout_template' do
                 page.find('option[value=refinery]').selected?.should eq('selected')
@@ -736,7 +731,8 @@ module Refinery
             specify "dialog has correct links", :js do
               visit refinery.edit_admin_page_path(about_page)
 
-              click_link "Add Link"
+
+              find("#page_part_body .wym_tools_link a").click
 
               page.should have_selector("iframe#dialog_frame")
 
@@ -751,7 +747,7 @@ module Refinery
                 click_link "Ru"
               end
 
-              click_link "Add Link"
+              find("#page_part_body .wym_tools_link a").click
 
               page.should have_selector("iframe#dialog_frame")
 
