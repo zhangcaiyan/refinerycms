@@ -3,7 +3,7 @@
 
   <%= render '/refinery/admin/error_messages', :object => @page, :include_object_name => true %>
 
-  <%= render '/refinery/admin/locale_picker', :current_locale => Globalize.locale if Refinery.i18n_enabled? %>
+  <%= render '/refinery/admin/locale_picker', :current_locale => Globalize.locale %>
 
   <div class="field">
     <%= f.label :title %>
@@ -29,7 +29,8 @@
                :name => nil,
                :class => "wymupdate button",
                :tooltip => t('.preview_changes')
-             ) %>
+             ),
+             :cancel_url => refinery.admin_pages_path %>
 
   <%= render 'form_new_page_parts', :f => f if Refinery::Pages.new_page_parts %>
 <% end %>

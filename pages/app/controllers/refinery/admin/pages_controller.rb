@@ -12,8 +12,7 @@ module Refinery
 
       before_filter :load_valid_templates, :only => [:edit, :new]
 
-      before_filter :restrict_access, :only => [:create, :update, :update_positions, :destroy],
-                    :if => proc { Refinery.i18n_enabled? }
+      before_filter :restrict_access, :only => [:create, :update, :update_positions, :destroy]
 
       def new
         @page = Refinery::Page.new(params.except(:controller, :action, :switch_locale))
@@ -92,10 +91,10 @@ module Refinery
       end
 
       def load_valid_templates
-        @valid_layout_templates = Refinery::Pages.layout_template_whitelist &
+        @valid_layout_templates = Refinery::Pages.layout_template_whitelist.map(&:to_s) &
                                   Refinery::Pages.valid_templates('app', 'views', '{layouts,refinery/layouts}', '*html*')
 
-        @valid_view_templates = Refinery::Pages.view_template_whitelist &
+        @valid_view_templates = Refinery::Pages.view_template_whitelist.map(&:to_s) &
                                 Refinery::Pages.valid_templates('app', 'views', '{pages,refinery/pages}', '*html*')
       end
 

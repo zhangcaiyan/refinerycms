@@ -11,20 +11,33 @@
 * Added template whitelist for page tabs. [#1943](https://github.com/refinery/refinerycms/pull/1943). [Johan](https://github.com/jokklan)
 * Removed DD_belatedPNG since we're dropping IE6 support. (https://github.com/refinery/refinerycms/commit/45367ebeb2fa026a2932d0514db50c8982d2c309)
 * Dropped coffee-rails dependency. [#1975](https://github.com/refinery/refinerycms/issues/1975). [Uģis Ozols](https://github.com/ugisozols)
+* Added Portuguese translations. [#2007](https://github.com/refinery/refinerycms/pull/2007). [David Silva](https://github.com/davidslvto)
+* Added Hungarian translations. [#2010](https://github.com/refinery/refinerycms/pull/2010). [minktom](https://github.com/minktom)
+* Extracted search header logic into partial. [#1974](https://github.com/refinery/refinerycms/pull/1974). [Uģis Ozols](https://github.com/ugisozols)
+* Images can only be updated when the image being uplaoded has the same filename as the original image. [#1866](https://github.com/refinery/refinerycms/pull/1866). [Philip Arndt](https://github.com/parndt) & [Uģis Ozols](https://github.com/ugisozols)
+* Rack::Cache should be a soft dependency per rails/rails#7838. Fixes Dragonfly caching when Rack::Cache is present. [#1736](https://github.com/refinery/refinerycms/issues/1736). [Alexander Wenzowski](https://github.com/wenzowski)
+* Made `refinerycms-i18n` hard dependency for `refinerycms-core`. This allowed to remove all `Refinery.i18n_enabled?` checks. [#2025](https://github.com/refinery/refinerycms/pull/2025). [Uģis Ozols](https://github.com/ugisozols)
+* Fixed issue with `view_template_whitelist` config option when array of symbols was used. [#2030](https://github.com/refinery/refinerycms/pull/2030). [A.S. Lomoff](https://github.com/allomov)
+* Removed `source` from block_tags and made it so `wymeditor_whiltelist_tags` don't get added to block_tags. [#2029](https://github.com/refinery/refinerycms/pull/2029). [Sergio Cambra](https://github.com/scambra)
+* Removed Array inheritance from `Refinery::Plugins` and included Enumerable module instead. [#2035](https://github.com/refinery/refinerycms/pull/2035). [Uģis Ozols](https://github.com/ugisozols)
+* Refactored `Refinery::Page#url` and friends. [#2031](https://github.com/refinery/refinerycms/pull/2031). [Uģis Ozols](https://github.com/ugisozols)
+* Removed `store_current_location!` because it was polluting all controllers with Refinery specific instance variable `@page`. [#2032](https://github.com/refinery/refinerycms/issues/2032). [Philip Arndt](https://github.com/parndt) & [Amrit Ayalur](https://github.com/aayalur)
+* Removed `meta_keywords` since seo_meta removed keyword support in version 1.4.0. [#2052](https://github.com/refinery/refinerycms/pull/2052)], [#2053](https://github.com/refinery/refinerycms/pull/2053). [Jean-Philippe Doyle](https://github.com/j15e) & [Uģis Ozols](https://github.com/ugisozols)
 
 * [See full list](https://github.com/refinery/refinerycms/compare/2-0-stable...master)
 
-## 2.0.9 [10 September 2012]
+## 2.0.9 [21 November 2012]
 * Allowed extra parameters to be passed when creating image. [#1914](https://github.com/refinery/refinerycms/pull/1914). [tbuyle](https://github.com/tbuyle)
 * Added usage instructions to refinerycms executable. [#1931](https://github.com/refinery/refinerycms/pull/1931). [Uģis Ozols](https://github.com/ugisozols) & [Philip Arndt](https://github.com/parndt).
 * Disabled page caching when logged in to prevent caching the sitebar. [#1609](https://github.com/refinery/refinerycms/pull/1609). [Johan Frolich](https://github.com/jokklan)
 * Fixed problems with `refinery:engine` generator and namespacing. [#1888](https://github.com/refinery/refinerycms/pull/1888). [David J. Brenes](https://github.com/brenes)
 * Fixed extension/form generator issue when using --pretend option. [#1916](https://github.com/refinery/refinerycms/issues/1916). [Uģis Ozols](https://github.com/ugisozols)
 * Fixed new resource insertion in custom extensions which use resource picker. [#1948](https://github.com/refinery/refinerycms/pull/1948). [Marek](https://github.com/keram)
-* Fixed _save and continue_ and _preview_ functionality in pages extension when title was changed. [#1944](https://github.com/refinery/refinerycms/pull/1944). (tsemana)[https://github.com/tsemana]
+* Fixed _save and continue_ and _preview_ functionality in pages extension when title was changed. [#1944](https://github.com/refinery/refinerycms/pull/1944). [tsemana](https://github.com/tsemana)
 * Fixed html stripping bug when editing pages. [#1891](https://github.com/refinery/refinerycms/issues/1891). [Uģis Ozols](https://github.com/ugisozols)
 * Fixed pagination in existing image/resource partial after uploading new image/resource. [#1970](https://github.com/refinery/refinerycms/issues/1970). [Uģis Ozols](https://github.com/ugisozols)
 * Added check to extension generator which checks if extension specified by --extension option actually exist. [#1967](https://github.com/refinery/refinerycms/issues/1967). [Uģis Ozols](https://github.com/ugisozols)
+* Removed everything that was related to `Refinery::Page#invalidate_cached_urls` because it was redundant and there already is a code that takes care of deleting cache. [#1998](https://github.com/refinery/refinerycms/pull/1998). [Uģis Ozols](https://github.com/ugisozols)
 * [See full list](https://github.com/refinery/refinerycms/compare/2.0.8...2.0.9)
 
 ## 2.0.8 [17 August 2012]

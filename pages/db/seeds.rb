@@ -44,17 +44,6 @@ if Refinery::Page.where(menu_match: "^/$").empty?
   end
 end
 
-<<<<<<< HEAD
-(Refinery.i18n_enabled? ? Refinery::I18n.frontend_locales : [:en]).each do |lang|
-  I18n.locale = lang
-  {'home' => "Home",
-   'page-not-found' => 'Page not found',
-   'about' => 'About'
-  }.each do |slug, title|
-    Refinery::Page.by_title(title).each { |page| page.update_attributes(:slug => slug) }
-  end
-=======
-
 Refinery::I18n.frontend_locales.each do |lang|
   I18n.locale = lang
   {'home' => "Home",
