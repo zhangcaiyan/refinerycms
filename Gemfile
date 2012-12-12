@@ -3,9 +3,9 @@ source 'http://rubygems.org'
 gemspec
 
 # Add i18n support.
-# gem 'refinerycms-i18n', '~> 2.1.0.dev', github: 'refinery/refinerycms-i18n'
+gem 'refinerycms-i18n', '~> 2.1.0.dev', github: 'refinery/refinerycms-i18n'
 
-gem 'protected_attributes', github: 'rails/protected_attributes' 
+gem 'protected_attributes', github: 'rails/protected_attributes'
 # Fixes uniqueness constraint on translated columns.
 # See: https://github.com/svenfuchs/globalize3/pull/121
 gem 'globalize3', github: 'svenfuchs/globalize3'
@@ -14,6 +14,7 @@ gem 'devise', github: 'parndt/devise', branch: 'rails4'
 gem 'awesome_nested_set', github: 'collectiveidea/awesome_nested_set'
 gem 'orm_adapter', github: 'ugisozols/orm_adapter', branch: 'rails4'
 gem 'database_cleaner', github: "ugisozols/database_cleaner", branch: 'rails4'
+gem 'routing-filter', github: "refinery/routing-filter", branch: 'rails4'
 
 # Database Configuration
 unless ENV['TRAVIS']
