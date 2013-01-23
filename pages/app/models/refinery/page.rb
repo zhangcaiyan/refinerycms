@@ -4,8 +4,9 @@ require 'acts_as_indexed'
 require 'friendly_id'
 
 module Refinery
-  class Page < Core::BaseModel
+  class Page < Core::BaseModelWithDomain
     extend FriendlyId
+    default_scope lambda{where(:domain_id=>@@domain_id)}
 
     # when collecting the pages path how is each of the pages seperated?
     PATH_SEPARATOR = " - "
@@ -31,6 +32,7 @@ module Refinery
 
     attr_accessor :locale, :page_title, :page_menu_title # to hold temporarily
     validates :title, :presence => true
+    validates :custom_slug, :uniqueness => {:scope => :domain_id}, :allow_blank => true
 
     # Docs for acts_as_nested_set https://github.com/collectiveidea/awesome_nested_set
     # rather than :delete_all we want :destroy

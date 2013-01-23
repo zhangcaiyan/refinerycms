@@ -11,12 +11,14 @@ class CreateRefinerycmsAuthenticationSchema < ActiveRecord::Migration
 
     create_table :refinery_roles do |t|
       t.string :title
+      t.integer :domain_id
     end
 
     create_table :refinery_user_plugins do |t|
       t.integer :user_id
       t.string  :name
       t.integer :position
+      t.integer   :domain_id
     end
 
     add_index :refinery_user_plugins, :name
@@ -39,5 +41,8 @@ class CreateRefinerycmsAuthenticationSchema < ActiveRecord::Migration
     end
 
     add_index :refinery_users, :id
+    create_table :refinery_domains do |t|
+      t.string :bare_domain
+    end
   end
 end

@@ -1,8 +1,10 @@
 require 'dragonfly'
 
 module Refinery
-  class Resource < Refinery::Core::BaseModel
+  class Resource < Refinery::Core::BaseModelWithDomain
     ::Refinery::Resources::Dragonfly.setup!
+
+    default_scope lambda{where(:domain_id=>@@domain_id)}
 
     include Resources::Validators
 

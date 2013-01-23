@@ -1,9 +1,10 @@
 require 'dragonfly'
 
 module Refinery
-  class Image < Refinery::Core::BaseModel
+  class Image < Refinery::Core::BaseModelWithDomain
     ::Refinery::Images::Dragonfly.setup!
 
+    default_scope lambda{where(:domain_id=>@@domain_id)}
     include Images::Validators
 
     image_accessor :image

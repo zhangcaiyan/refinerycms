@@ -1,3 +1,6 @@
+增加的对做站点的支持，在同一个应用内可以部署如a.com,b.com等多个站点，站点之前互相隔离。
+使用命令 rake db:seed new_domain=newdomain.com 来新建一个站点并填充种子数据。
+
 # Refinery CMS
 
 __An open source Ruby on Rails content management system for Rails 3.__
