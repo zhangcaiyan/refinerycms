@@ -67,8 +67,7 @@ module Refinery
   protected
 
     def set_domain_to_refinery_model
-
-      bare_domain = (matchdata = request.host.match(/^(\w+\.)*(\w+)\.jobs(:(\d+))?$/)) ? matchdata[2] : nil
+      bare_domain = (matchdata = request.host.match(/^(\w+\.)*(\w+)\.[^:]*(:(\d+))?$/)) ? matchdata[2] : nil
 
       if (bare_domain.present? && domain = Refinery::Core::Domain.find_by_bare_domain(bare_domain))
         Refinery::Core::BaseModelWithDomain.domain_id = domain.id
