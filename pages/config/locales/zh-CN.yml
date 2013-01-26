@@ -35,15 +35,21 @@ zh-CN:
         delete: 永久删除此页面
         edit: 编辑此页面
         new: 新建子页面
+        expand_collapse: 展开或折叠子页面
         page:
           view_live_html: 浏览这个页面 <br/><em>(在新窗口打开)</em>
           hidden: 隐藏
           draft: 草稿
+        form:
+          preview: 预览
+          preview_changes: 在激活它们之前预览一下 
         form_new_page_parts:
           title: 标题
         form_page_parts:
           create_content_section: 添加内容区
           delete_content_section: 删除内容区
+          reorder_content_section: 内容部分重新排序
+          reorder_content_section_done: 我做了重新排序的内容部分
         form_advanced_options:
           toggle_advanced_options: meta 标签设定与菜单选项
           page_options: 页面选项
@@ -64,6 +70,10 @@ zh-CN:
           parent_page_help: 您可以在列表中让一个页面依附在另一个页面之下. 如果您想要让这个页面为第一层页面, 就不要填写.
           menu_title_help: 如果您想要菜单有一个不同于这个页面上的名称, 请输入
           custom_slug_help: slug是用来帮助创建一个页面完整URL的标示符，例如 &apos;about-up&apos;. 要覆盖掉Refinery自动创建的slug, 在此输入
+          layout_template: 布局模板
+          layout_template_help: 您可以选择不同的模板布局此页
+          view_template: 视图模板
+          view_template_help: 您可以在此页选择不同的视图模板
           custom_title_help: 如果您想要此页面在菜单里有个不一样的名称, 请选择 &apos;文字&apos; , 然后在这里输入.
         actions:
           create_new_page: 添加新页面
