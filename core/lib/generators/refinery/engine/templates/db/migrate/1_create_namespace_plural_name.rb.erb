@@ -13,6 +13,7 @@ class Create<%= namespacing %><%= class_name.pluralize %> < ActiveRecord::Migrat
       t.<%= attribute.type %> :<%= attribute.name %>
 <% end -%>
       t.integer :position
+      t.integer :domain_id
 
       t.timestamps
     end

@@ -1,9 +1,11 @@
 module Refinery
   module <%= namespacing %>
-    class <%= class_name %> < Refinery::Core::BaseModel
+    class <%= class_name %> < Refinery::Core::BaseModelWithDomain
 <% if table_name == namespacing.underscore.pluralize -%>
       self.table_name = 'refinery_<%= plural_name %>'
 <% end %>
+      default_scope lambda{where(:domain_id=>@@domain_id)}
+
       attr_accessible <%= names_for_attr_accessible.map { |n| ":#{n}" }.join(', ') %>, :position
 <% if localized? -%>
 
@@ -17,7 +19,7 @@ module Refinery
 
       acts_as_indexed :fields => <%= string_attributes.map{|s| s.name.to_sym}.inspect %>
 
-      validates <%= string_attributes.first.name.to_sym.inspect %>, :presence => true, :uniqueness => true
+      validates <%= string_attributes.first.name.to_sym.inspect %>, :presence => true, :uniqueness => {:scope => :domain_id}
 <% else -%>
       # def title was created automatically because you didn't specify a string field
       # when you ran the refinery:engine generator. <3 <3 Refinery CMS.
