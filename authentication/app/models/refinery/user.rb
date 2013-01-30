@@ -4,7 +4,7 @@ require 'friendly_id'
 module Refinery
   class User < Refinery::Core::BaseModelWithDomain
     extend FriendlyId
-    default_scope lambda{where(:domain_id=>@@domain_id)}
+    default_scope lambda{where(:domain_id=>@@domain_id) if @@domain_id}
 
     has_and_belongs_to_many :roles, :join_table => :refinery_roles_users
 

@@ -6,7 +6,7 @@ require 'friendly_id'
 module Refinery
   class Page < Core::BaseModelWithDomain
     extend FriendlyId
-    default_scope lambda{where(:domain_id=>@@domain_id)}
+    default_scope lambda{where(:domain_id=>@@domain_id) if @@domain_id}
 
     # when collecting the pages path how is each of the pages seperated?
     PATH_SEPARATOR = " - "

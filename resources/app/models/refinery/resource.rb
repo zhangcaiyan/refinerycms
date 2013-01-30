@@ -4,7 +4,7 @@ module Refinery
   class Resource < Refinery::Core::BaseModelWithDomain
     ::Refinery::Resources::Dragonfly.setup!
 
-    default_scope lambda{where(:domain_id=>@@domain_id)}
+    default_scope lambda{where(:domain_id=>@@domain_id) if @@domain_id}
 
     include Resources::Validators
 
