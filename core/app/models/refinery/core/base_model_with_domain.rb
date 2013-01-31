@@ -17,6 +17,10 @@ module Refinery
 
       self.abstract_class = true
 
+      def domain_id
+        read_attribute :domain_id
+      end
+
       private
       def append_domain_id
 
