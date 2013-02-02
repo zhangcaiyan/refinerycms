@@ -4,7 +4,7 @@ module Refinery
 <% if table_name == namespacing.underscore.pluralize -%>
       self.table_name = 'refinery_<%= plural_name %>'
 <% end %>
-      default_scope lambda{where(:domain_id=>@@domain_id)}
+      default_scope lambda{where(:domain_id=>@@domain_id) if @@domain_id}
 
       attr_accessible <%= names_for_attr_accessible.map { |n| ":#{n}" }.join(', ') %>, :position
 <% if localized? -%>

@@ -39,7 +39,8 @@
       <div id='page_part_editors'>
         <%% <%= text_areas.map{|t| t.name.to_sym}.inspect -%>.each do |part| %>
           <div class='page_part' id='<%%= part %>'>
-            <%%= f.text_area part, :rows => 20, :class => 'wymeditor widest' -%>
+            <%%= f.text_area part, :rows => 20, :class => 'wysiwyg widest' -%>
+            <%%= render "/refinery/image_resource_container" %>
           </div>
         <%% end %>
       </div>
@@ -64,4 +65,17 @@
     });
   </script>
 <%% end %>
+
+<%% content_for :stylesheets do -%>
+  <style text="type/stylesheet">
+    .cke_skin_kama{
+      float: left;
+    }
+    .content{
+      width: 65%;  
+    }
+  </style>
+<%% end -%>  
 <% end -%>
+
+
