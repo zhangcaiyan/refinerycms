@@ -30,7 +30,7 @@ zh-CN:
         fill_form: 在下面填写您的详细信息以做好开始的准备.
         sign_up: 注册
       create:
-        welcome: '欢迎使用 Refinery, %{who}'
+        welcome: '欢迎使用, %{who}'
       forgot:
         email_address: 邮件地址
         enter_email_address: 请为您的帐号输入邮件地址.
